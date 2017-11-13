@@ -19,12 +19,12 @@ class ShallowNet:
 			inputShape = (depth, height, width)
 
 		# define the first (and only) CONV => RELU layer
-		model.add(Conv2D(32, (3, 3), padding="same",
+		model.add(Conv2D(32, (2, 2), padding="same",
 			input_shape=inputShape))
 		model.add(Activation("relu"))
 
 		# define the second CONV => RELU layer VINICIUS
-		model.add(Conv2D(64, (3, 3), padding="same",
+		model.add(Conv2D(64, (2, 2), padding="same",
 						 input_shape=inputShape))
 		model.add(Activation("relu"))
 

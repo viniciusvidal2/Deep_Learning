@@ -32,4 +32,12 @@
 	/// piora consideravel dos gatos, mas grande melhora no negativo
 	/// CONCLUSAO: Melhorou os negativos, mas mais tempo de processo
 
-
+# Teste 5: Reduzir a lr para 0.001 sem nesterov acceleration
+	> 25 epocas
+	> lr de 0.001, decay, momentum
+	> 40 fotos poste, tres classes
+	> conv(32, (2,2)) - conv(64, (2,2)) - dense(3) - softmax
+	/// 100% dos postes encontrados
+	/// piora consideravel dos gatos, mas grande melhora no negativo
+	/// CONCLUSAO: Processo fica bem menos suave, somente a train_loss cai suavemente, não é a 
+	/// melhor escolha

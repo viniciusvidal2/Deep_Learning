@@ -48,13 +48,13 @@ epochs = 25
 
 # initialize the optimizer and model
 print("[INFO] compiling model...")
-opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
+opt = SGD(lr=0.0001, decay=1/epochs, momentum=0.9, nesterov=True)
 model = ShallowNet.build(width=130, height=380, depth=3, classes=3)
 model.compile(loss="categorical_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
 # train the network
-batch = 10
+batch = 20
 print("[INFO] training network...")
 H = model.fit(trainX, trainY, validation_data=(testX, testY),
 	batch_size=batch, epochs=epochs, verbose=2)
