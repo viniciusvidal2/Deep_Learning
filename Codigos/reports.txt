@@ -1,0 +1,35 @@
+# Teste 1:
+	> 100 epocas
+	> lr de 0.001, decay, momentum, nesterov
+	> 40 fotos poste, tres classes
+	> conv(32, (2,2)) - dense(3) - softmax
+	/// Horrivel
+
+# Teste 2: Adicionar camada conv com o dobro da capacidade
+	> 15 epocas
+	> lr de 0.001, decay, momentum, nesterov
+	> 40 fotos poste, tres classes
+	> conv(32, (2,2)) - conv(64, (2,2)) - dense(3) - softmax
+	/// 100% dos postes encontrados
+	/// 100% dos gatos encontrados
+	/// Poderia ser melhor nos negativos
+	/// CONCLUSAO: Uma camada conv saturou e nao conseguiu distinguir no conjunto de dados
+
+# Teste 3: Alterar o lr para comecar em 0.01
+	> 10 epocas
+	> lr de 0.01, decay, momentum, nesterov
+	> 40 fotos poste, tres classes
+	> conv(32, (2,2)) - conv(64, (2,2)) - dense(3) - softmax
+	/// Horrivel, assim como teste 1, nao houve alteracao sobre valores de loss e acc
+	/// CONCLUSAO: Nao ache que o valor de lr esta baixo, valor anterior melhor que esse, pode 		/// talvez diminuir
+
+# Teste 4: Alterar os receptive fields (F) de (2, 2) para (3, 3)
+	> 15 epocas
+	> lr de 0.001, decay, momentum, nesterov
+	> 40 fotos poste, tres classes
+	> conv(32, (3,3)) - conv(64, (3,3)) - dense(3) - softmax
+	/// 100% dos postes encontrados
+	/// piora consideravel dos gatos, mas grande melhora no negativo
+	/// CONCLUSAO: Melhorou os negativos, mas mais tempo de processo
+
+
