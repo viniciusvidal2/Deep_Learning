@@ -12,7 +12,7 @@ from imutils import paths
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.utils import np_utils
-import argparse
+#  import argparse
 
 # Adiciona caminhos e arquivos necessarios dentro das pastas
 from tools.preprocessing import ImageToArrayPreprocessor

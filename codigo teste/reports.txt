@@ -41,3 +41,9 @@
 	/// piora consideravel dos gatos, mas grande melhora no negativo
 	/// CONCLUSAO: Processo fica bem menos suave, somente a train_loss cai suavemente, não é a 
 	/// melhor escolha
+
+# Teste 6: Adição de Batch Normalization antes e depois da RELU para a melhor arquitetura atual
+	> 25 epocas
+	> lr de 0.001, decay, momentum, nesterov
+	> 61 fotos poste, 3 classes
+	> conv(32, (2,2)) - conv(64, (2,2)) - dense(3) - softmax
