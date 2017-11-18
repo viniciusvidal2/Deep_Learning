@@ -80,8 +80,15 @@
 
 # Teste 11: MiniVGG sem batch normalization
 	> 20 epocas
-	> lr de 0.001, decay, nesterov, momentum
+	> lr de 0.01, decay, nesterov, momentum
 	> Todas as fotos de tudo 307
 	/// Media de acerto de 70%
 	/// Comecou a fazer mais sentido o aprendizado, porem ainda nao esta fazendo vantagem perante a Lenet mais simples nem a nossa,
 	/// Tentar mudar um pouco a camada densa, parece que a rede tem que ficar mais complexa ainda para pegar todas as caracteristicas
+
+# Teste 12: MiniVGG sem batch normalization e dropout somente na camada de saida
+	> 15 epocas
+	> lr de 0.01, decay, nesterov, momentum
+	> Todas as fotos de tudo 307
+	/// Media de acerto de 86%
+	/// Aparentemente o dropout fica em excesso ao colocar em todas as camadas ocultas convolucionais
