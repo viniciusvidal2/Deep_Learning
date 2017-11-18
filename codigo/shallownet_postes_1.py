@@ -20,6 +20,7 @@ from tools.preprocessing import SimplePreprocessor
 from tools.datasets      import SimpleDatasetLoader
 from tools.conv import ShallowNet
 from tools.conv import LeNet
+from tools.conv import MiniVGGNet
 
 # grab the list of images that we'll be describing
 print("[INFO] loading images...")
@@ -28,7 +29,7 @@ imagePaths = list(paths.list_images(path))
 
 
 # initialize the image preprocessors
-sp = SimplePreprocessor(130, 380)
+sp = SimplePreprocessor(65, 190)
 iap = ImageToArrayPreprocessor()
 
 # load the dataset from disk then scale the raw pixel intensities
@@ -47,14 +48,15 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 	labels, test_size=0.20, random_state=20)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 50
+epochs = 35
 
 # initialize the optimizer
 print("[INFO] compiling model...")
 opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
-model = LeNet.build(width=130, height=380, depth=3, classes=2)
+model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
+# model = LeNet.build(width=130, height=380, depth=3, classes=2)
 # model = ShallowNet.build(width=130, height=380, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])

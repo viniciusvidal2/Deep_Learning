@@ -66,9 +66,22 @@
 
 # Teste 9: LeNet, com dropout
 	> 50 epocas
-	> lr de 0.001, decay, nesterov
+	> lr de 0.001, decay, nesterov, momentum
 	> Todas as fotos de tudo 307
 	/// Media de 70% de acerto em ambas as classes
 	/// dropout tambem importa bastante no quesito grafico abrupto
 
+# Teste 10: MiniVGG pura
+	> 20 epocas
+	> lr de 0.001, decay, nesterov, momentum
+	> Todas as fotos de tudo 307
+	/// Uma bosta, a validation_loss so aumenta, tentando remover aqui agora o batch normalization, porque ja se desconfia que
+	/// ele traz os dados para uma regiao bem proxima da media, que atrapalha na identificacao de todas as classes
 
+# Teste 11: MiniVGG sem batch normalization
+	> 20 epocas
+	> lr de 0.001, decay, nesterov, momentum
+	> Todas as fotos de tudo 307
+	/// Media de acerto de 70%
+	/// Comecou a fazer mais sentido o aprendizado, porem ainda nao esta fazendo vantagem perante a Lenet mais simples nem a nossa,
+	/// Tentar mudar um pouco a camada densa, parece que a rede tem que ficar mais complexa ainda para pegar todas as caracteristicas
