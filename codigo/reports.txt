@@ -47,3 +47,28 @@
 	> lr de 0.001, decay, momentum, nesterov
 	> 61 fotos poste, 3 classes
 	> conv(32, (2,2)) - conv(64, (2,2)) - dense(3) - softmax
+
+# Teste 7: LeNet sobre o banco de dados total
+	> 50 epocas
+	> lr de 0.001, decay, momentum, nesterov
+	> Todas as fotos de tudo 307
+	> LeNet, com dropouts inseridos nas camadas de convolucao
+	/// Media de 80% de acerto em ambas as classes
+	/// Momento esta fazendo o grafico ficar muito abrupto, tentar retirar ele e o dropout no proximo teste
+
+# Teste 8: LeNet, sem dropout e sem momentum
+	> 50 epocas
+	> lr de 0.001, decay, nesterov
+	> Todas as fotos de tudo 307
+	> LeNet pura
+	/// Media de 70% de acerto em ambas as classes
+	/// Sem os dois a curva foi muito mais suave, mas isso deve ser mais a ver com o momentum
+
+# Teste 9: LeNet, com dropout
+	> 50 epocas
+	> lr de 0.001, decay, nesterov
+	> Todas as fotos de tudo 307
+	/// Media de 70% de acerto em ambas as classes
+	/// dropout tambem importa bastante no quesito grafico abrupto
+
+

@@ -1,0 +1,1 @@
+# Comecando classe para rede MiniVGG
