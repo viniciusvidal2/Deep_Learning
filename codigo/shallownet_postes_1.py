@@ -18,7 +18,9 @@ from keras.utils import np_utils
 from tools.preprocessing import ImageToArrayPreprocessor
 from tools.preprocessing import SimplePreprocessor
 from tools.datasets      import SimpleDatasetLoader
-from tools.conv       import ShallowNet
+from tools.conv import ShallowNet
+from tools.conv import LeNet
+from tools.conv import MiniVGGNet
 
 # grab the list of images that we'll be describing
 print("[INFO] loading images...")
@@ -27,13 +29,13 @@ imagePaths = list(paths.list_images(path))
 
 
 # initialize the image preprocessors
-sp = SimplePreprocessor(130, 380)
+sp = SimplePreprocessor(65, 190)
 iap = ImageToArrayPreprocessor()
 
 # load the dataset from disk then scale the raw pixel intensities
 # to the range [0, 1]
 sdl = SimpleDatasetLoader(preprocessors=[sp, iap])
-(data, labels) = sdl.load(imagePaths, verbose=25)
+(data, labels) = sdl.load(imagePaths, verbose=50)
 data = data.astype("float") / 255.0
 labels = np.array(labels)
 
@@ -43,19 +45,19 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 20% for testing
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.20, random_state=42)
-
-# convert the labels from integers to vectors
-# trainY = LabelBinarizer().fit_transform(trainY)
-# testY = LabelBinarizer().fit_transform(testY)
+	labels, test_size=0.20, random_state=20)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 25
+epochs = 35
 
-# initialize the optimizer and model
+# initialize the optimizer
 print("[INFO] compiling model...")
 opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
-model = ShallowNet.build(width=130, height=380, depth=3, classes=2)
+
+# Utilizando o modelo do caso atual
+model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
+# model = LeNet.build(width=130, height=380, depth=3, classes=2)
+# model = ShallowNet.build(width=130, height=380, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
