@@ -12,7 +12,6 @@ from imutils import paths
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.utils import np_utils
-#  import argparse
 
 # Adiciona caminhos e arquivos necessarios dentro das pastas
 from tools.preprocessing import ImageToArrayPreprocessor
@@ -24,6 +23,9 @@ from tools.conv import MiniVGGNet
 
 # Callback para salvar melhor rede
 from keras.callbacks import ModelCheckpoint
+# Carregar a rede
+from keras.models import load_model
+
 
 # grab the list of images that we'll be describing
 print("[INFO] loading images...")
@@ -48,14 +50,14 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 20% for testing
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.20, random_state=20)
+	labels, test_size=0.20, random_state=40)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 35
+epochs = 30
 
 # initialize the optimizer
 print("[INFO] compiling model...")
-opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
+opt = SGD(lr=0.005, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
 # model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
@@ -65,13 +67,16 @@ model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
 # Criando callback para salvar melhor rede baseado na validation_loss
-melhor = ModelCheckpoint("Melhores_redes/atual.hdf5", save_best_only=True, verbose=2)
+melhor = ModelCheckpoint("Melhores_redes/atual.hdf5", save_best_only=True, verbose=2, monitor='val_acc')
 
 # train the network
 batch = 20
 print("[INFO] training network...")
 H = model.fit(trainX, trainY, validation_data=(testX, testY),
 	batch_size=batch, epochs=epochs, callbacks=[melhor], verbose=2)
+
+# Carregando a melhor rede para avaliar a partir dela
+model = load_model("Melhores_redes/atual.hdf5")
 
 # evaluate the network
 print("[INFO] evaluating network...")
