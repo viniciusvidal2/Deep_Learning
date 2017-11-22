@@ -22,6 +22,9 @@ from tools.conv import ShallowNet
 from tools.conv import LeNet
 from tools.conv import MiniVGGNet
 
+# Callback para salvar melhor rede
+from keras.callbacks import ModelCheckpoint
+
 # grab the list of images that we'll be describing
 print("[INFO] loading images...")
 path = "../datasets/POSTE/"
@@ -55,17 +58,20 @@ print("[INFO] compiling model...")
 opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
-model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
+# model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
 # model = LeNet.build(width=130, height=380, depth=3, classes=2)
-# model = ShallowNet.build(width=130, height=380, depth=3, classes=2)
+model = ShallowNet.build(width=65, height=190, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
+
+# Criando callback para salvar melhor rede baseado na validation_loss
+melhor = ModelCheckpoint("Melhores_redes/atual.hdf5", save_best_only=True, verbose=2)
 
 # train the network
 batch = 20
 print("[INFO] training network...")
 H = model.fit(trainX, trainY, validation_data=(testX, testY),
-	batch_size=batch, epochs=epochs, verbose=2)
+	batch_size=batch, epochs=epochs, callbacks=[melhor], verbose=2)
 
 # evaluate the network
 print("[INFO] evaluating network...")
