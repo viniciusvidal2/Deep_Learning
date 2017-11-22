@@ -1,4 +1,4 @@
 # import the necessary packages
-from .shallownet import ShallowNet
-from .lenet      import LeNet
-from .minivgg    import MiniVGGNet
+from .nossa_net import NossaNet
+from .lenet     import LeNet
+from .minivgg   import MiniVGGNet

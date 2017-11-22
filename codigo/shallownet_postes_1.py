@@ -18,7 +18,7 @@ from keras.utils import np_utils
 from tools.preprocessing import ImageToArrayPreprocessor
 from tools.preprocessing import SimplePreprocessor
 from tools.datasets      import SimpleDatasetLoader
-from tools.conv import ShallowNet
+from tools.conv import NossaNet
 from tools.conv import LeNet
 from tools.conv import MiniVGGNet
 
@@ -60,7 +60,7 @@ opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 # Utilizando o modelo do caso atual
 # model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
 # model = LeNet.build(width=130, height=380, depth=3, classes=2)
-model = ShallowNet.build(width=65, height=190, depth=3, classes=2)
+model = NossaNet.build(width=65, height=190, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
