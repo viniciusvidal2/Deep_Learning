@@ -9,6 +9,7 @@ from cv2 import *
 from tools.preprocessing import ImageToArrayPreprocessor
 from tools.preprocessing import SimplePreprocessor
 from keras.preprocessing.image import img_to_array
+import time
 
 def scales(windowSize_base):
 	for scale in range(1, 3, 1):
@@ -28,9 +29,9 @@ iap = ImageToArrayPreprocessor()
 
 # Carregando imagem de teste
 foto = imread("/home/vinicius/Desktop/Deep_Learning/datasets/Testes/frame0003.jpg")
-imshow("teste ok", foto)
-waitKey(0)
-destroyAllWindows()
+# imshow("teste ok", foto)
+# waitKey(0)
+# destroyAllWindows()
 
 # Definindo janela inicial
 window_size = np.array((60, 190))
@@ -41,7 +42,14 @@ for sc in scales(window_size):
 	for (x, y, window) in sliding_window(foto, step_size, window_size):
 		# AJUSTAR A IMAGEM DE ENTRADA
 		window = resize(window, (65, 190))
+		window = window.astype("float")/255.0
 		window = img_to_array(window)
+		window = np.expand_dims(window, axis=0) # 4 dimensions pagina 284 livro
 		# Ver predicao
-		(neg, poste) = model.predict(window, batch_size=20, verbose=1)
+		poste = model.predict(window)
+		clone = foto.copy()
+		rectangle(clone, (x,y), (x + window_size[0], y + window_size[1]), (0,255,0),2)
+		imshow("Slide", clone)
+		waitKey(1)
+		time.sleep(0.025)
 
