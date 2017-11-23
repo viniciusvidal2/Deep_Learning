@@ -1,6 +1,8 @@
+# Rotina de treinamento da nossa net, salvando e plotando o modelo para seguir em frente
+# no reconhecimento dos postes
+
 # import the necessary packages
 from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
