@@ -30,7 +30,7 @@ class NossaNet:
         model.add(Conv2D(32, ker1, padding="same",
                          input_shape=inputShape))
         model.add(Activation(act))
-        model.add(MaxPooling2D(pool_size=(3,3)))
+        model.add(MaxPooling2D(pool_size=(3,3), strides=3))
 
 
         # define the second CONV => RELU layer

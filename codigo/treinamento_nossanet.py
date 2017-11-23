@@ -1,6 +1,3 @@
-# USAGE
-# python shallownet_animals.py --dataset ../datasets/animals
-
 # import the necessary packages
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import LabelBinarizer
@@ -23,9 +20,9 @@ from tools.conv import MiniVGGNet
 
 # Callback para salvar melhor rede
 from keras.callbacks import ModelCheckpoint
-# Carregar a rede
+# Carregar a rede e plotar
 from keras.models import load_model
-
+from keras.utils import plot_model
 
 # grab the list of images that we'll be describing
 print("[INFO] loading images...")
@@ -77,6 +74,7 @@ H = model.fit(trainX, trainY, validation_data=(testX, testY),
 
 # Carregando a melhor rede para avaliar a partir dela
 model = load_model("Melhores_redes/atual.hdf5")
+plot_model(model, "Melhores_redes/arquitetura.png", show_shapes=True)
 
 # evaluate the network
 print("[INFO] evaluating network...")
