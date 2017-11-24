@@ -30,8 +30,9 @@ def show_posts(foto, xp, yp, wsp):
 model = load_model("Melhores_redes/melhor_atual.hdf5") # Cuidado com a manipulacao do arquivo
 
 # Carregando imagem de teste
-foto = imread("/home/vinicius/Desktop/Deep_Learning/datasets/Testes/frame0351.jpg")
-# foto = imread("/home/vinicius/Desktop/Deep_learning/datasets/Testes/frame0003.jpg")
+foto = imread("/home/vinicius/Desktop/Deep_Learning/datasets/Testes/frame0003.jpg")
+# foto = imread("/home/vinicius/Desktop/Deep_learning/datasets/Testes/frame0227.jpg")
+
 # imshow("teste ok", foto)
 # waitKey(0)
 # destroyAllWindows()

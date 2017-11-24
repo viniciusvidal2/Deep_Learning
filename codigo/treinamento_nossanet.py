@@ -39,7 +39,7 @@ iap = ImageToArrayPreprocessor()
 # load the dataset from disk then scale the raw pixel intensities
 # to the range [0, 1]
 sdl = SimpleDatasetLoader(preprocessors=[sp, iap])
-(data, labels) = sdl.load(imagePaths, verbose=50)
+(data, labels) = sdl.load(imagePaths, verbose=100)
 data = data.astype("float") / 255.0
 labels = np.array(labels)
 
@@ -52,11 +52,11 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 	labels, test_size=0.20, random_state=40)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 30
+epochs = 40
 
 # initialize the optimizer
 print("[INFO] compiling model...")
-opt = SGD(lr=0.005, decay=1/epochs, momentum=0.9, nesterov=True)
+opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
 # model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
