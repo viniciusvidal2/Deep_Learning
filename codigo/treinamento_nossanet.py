@@ -49,7 +49,7 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 20% for testing
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.20, random_state=40)
+	labels, test_size=0.10, random_state=40)
 
 # Numero de epocas pra ficar algo profissional
 epochs = 40
