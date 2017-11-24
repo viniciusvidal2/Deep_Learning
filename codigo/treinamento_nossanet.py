@@ -49,7 +49,7 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 20% for testing
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.10, random_state=40)
+	labels, test_size=0.25, random_state=20)
 
 # Numero de epocas pra ficar algo profissional
 epochs = 40
@@ -66,7 +66,7 @@ model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
 # Criando callback para salvar melhor rede baseado na validation_loss
-melhor = ModelCheckpoint("Melhores_redes/atual.hdf5", save_best_only=True, verbose=2, monitor='val_acc')
+melhor = ModelCheckpoint("Melhores_redes/atual.hdf5", save_best_only=True, verbose=2, monitor='val_loss')
 
 # train the network
 batch = 20

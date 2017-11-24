@@ -27,7 +27,7 @@ def show_posts(foto, xp, yp, wsp):
 	destroyAllWindows()
 
 # Carregando o modelo de interesse
-model = load_model("Melhores_redes/melhor_atual.hdf5") # Cuidado com a manipulacao do arquivo
+model = load_model("Melhores_redes/atual.hdf5") # Cuidado com a manipulacao do arquivo
 
 # Carregando imagem de teste
 foto = imread("/home/vinicius/Desktop/Deep_Learning/datasets/Testes/frame0227.jpg")
