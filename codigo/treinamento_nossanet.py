@@ -33,7 +33,8 @@ imagePaths = list(paths.list_images(path))
 
 
 # initialize the image preprocessors
-sp = SimplePreprocessor(65, 190)
+# sp = SimplePreprocessor(65, 190)
+sp = SimplePreprocessor(50, 250) # Tentativa para focar bem no poste
 iap = ImageToArrayPreprocessor()
 
 # load the dataset from disk then scale the raw pixel intensities
@@ -46,10 +47,9 @@ labels = np.array(labels)
 le = LabelEncoder().fit(labels)
 labels = np_utils.to_categorical(le.transform(labels), 2)
 
-# partition the data into training and testing splits using 75% of
-# the data for training and the remaining 20% for testing
+# Separando o conjunto de treino e validacao de forma aleatoria
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.25, random_state=20)
+	labels, test_size=0.15, random_state=20)
 
 # Numero de epocas pra ficar algo profissional
 epochs = 40
@@ -59,9 +59,9 @@ print("[INFO] compiling model...")
 opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
-# model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
-# model = LeNet.build(width=130, height=380, depth=3, classes=2)
-model = NossaNet.build(width=65, height=190, depth=3, classes=2)
+model = MiniVGGNet.build(width=50, height=250, depth=3, classes=2)
+# model = LeNet.build(width=50, height=250, depth=3, classes=2)
+# model = NossaNet.build(width=50, height=250, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 

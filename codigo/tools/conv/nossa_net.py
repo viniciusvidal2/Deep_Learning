@@ -44,16 +44,16 @@ class NossaNet:
         # define the fourth CONV => RELU layer
         model.add(Conv2D(64, ker2, padding="same"))
         model.add(Activation(act))
-        #
-        # # define the fifth CONV => RELU layer
-        # model.add(Conv2D(64, ker2, padding="same"))
-        # model.add(Activation(act))
-        # model.add(Dropout(0.5))
-        #
-        # # define the sixth CONV => RELU layer
-        # model.add(Conv2D(128, ker2, padding="same"))
-        # model.add(Activation(act))
-        # model.add(Dropout(0.5))
+
+        # define the fifth CONV => RELU layer
+        model.add(Conv2D(64, ker2, padding="same"))
+        model.add(Activation(act))
+        model.add(Dropout(0.5))
+
+        # define the sixth CONV => RELU layer
+        model.add(Conv2D(128, ker2, padding="same"))
+        model.add(Activation(act))
+        model.add(Dropout(0.5))
 
 
         # Camada so para tentar regular e softmax classifier
