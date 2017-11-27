@@ -34,13 +34,13 @@ imagePaths = list(paths.list_images(path))
 
 # initialize the image preprocessors
 # sp = SimplePreprocessor(65, 190)
-sp = SimplePreprocessor(50, 250) # Tentativa para focar bem no poste
+sp = SimplePreprocessor(35, 250) # Tentativa para focar bem no poste
 iap = ImageToArrayPreprocessor()
 
 # load the dataset from disk then scale the raw pixel intensities
 # to the range [0, 1]
 sdl = SimpleDatasetLoader(preprocessors=[sp, iap])
-(data, labels) = sdl.load(imagePaths, verbose=100)
+(data, labels) = sdl.load(imagePaths, verbose=50)
 data = data.astype("float") / 255.0
 labels = np.array(labels)
 
@@ -49,19 +49,19 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 
 # Separando o conjunto de treino e validacao de forma aleatoria
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.15, random_state=20)
+	labels, test_size=0.25, random_state=20)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 40
+epochs = 50
 
 # initialize the optimizer
 print("[INFO] compiling model...")
 opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
-model = MiniVGGNet.build(width=50, height=250, depth=3, classes=2)
+# model = MiniVGGNet.build(width=50, height=250, depth=3, classes=2)
 # model = LeNet.build(width=50, height=250, depth=3, classes=2)
-# model = NossaNet.build(width=50, height=250, depth=3, classes=2)
+model = NossaNet.build(width=35, height=250, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
@@ -83,7 +83,7 @@ print("[INFO] evaluating network...")
 predictions = model.predict(testX, batch_size=batch)
 print(classification_report(testY.argmax(axis=1),
 	predictions.argmax(axis=1),
-	target_names=["nao2", "postes"]))
+	target_names=["nao", "postes"]))
 
 # plot the training loss and accuracy
 plt.style.use("ggplot")
