@@ -31,6 +31,7 @@ def show_posts(foto, xp, yp, wsp, scr, fr):
 		for p in range(bests):
 			rectangle(foto, ( xp[scr_index[p]], yp[scr_index[p]] ),
 			    	  ( xp[scr_index[p]]+wsp[scr_index[p]][0], yp[scr_index[p]]+wsp[scr_index[p]][1] ), (0, 0, 255), 2)
+		putText(foto, "Score: "+str(scr[scr_index[0]]), (10, 100), FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), thickness=2)
 	# imshow(fr, foto)
 	imshow("video", foto)
 	waitKey(1)
@@ -70,7 +71,7 @@ for frame in sorted(os.listdir(video_folder)):
 			window = np.expand_dims(window, axis=0) # 4 dimensions pagina 284 livro
 			# Ver predicao
 			poste = model.predict(window)
-			if poste[0][1] > poste[0][0] and poste[0][1] > 0.68: # estamos com um poste aqui
+			if poste[0][1] > poste[0][0] and poste[0][1] > 0.75: # estamos com um poste aqui
 				x_p.append(x)
 				y_p.append(y)
 				window_size_p.append(sc)
