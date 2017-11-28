@@ -92,3 +92,9 @@
 	> Todas as fotos de tudo 307
 	/// Media de acerto de 86%
 	/// Aparentemente o dropout fica em excesso ao colocar em todas as camadas ocultas convolucionais
+
+# Teste 13: MiniVGG total com melhor conjunto de dados
+	> 40 epocas
+	> lr de 0.001, decay, nesterov, momentum
+	> Melhores fotos de poste
+	/// Acertou 94% no teste, mais nao do que poste, porem evolucao nao faz sentido algum, sorte que levamos em frente a melhor rede segundo validation loss.

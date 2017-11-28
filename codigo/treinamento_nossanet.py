@@ -33,7 +33,8 @@ imagePaths = list(paths.list_images(path))
 
 
 # initialize the image preprocessors
-sp = SimplePreprocessor(65, 190)
+# sp = SimplePreprocessor(65, 190)
+sp = SimplePreprocessor(35, 250) # Tentativa para focar bem no poste
 iap = ImageToArrayPreprocessor()
 
 # load the dataset from disk then scale the raw pixel intensities
@@ -46,27 +47,26 @@ labels = np.array(labels)
 le = LabelEncoder().fit(labels)
 labels = np_utils.to_categorical(le.transform(labels), 2)
 
-# partition the data into training and testing splits using 75% of
-# the data for training and the remaining 20% for testing
+# Separando o conjunto de treino e validacao de forma aleatoria
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.20, random_state=40)
+	labels, test_size=0.25, random_state=30)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 30
+epochs = 50
 
 # initialize the optimizer
 print("[INFO] compiling model...")
-opt = SGD(lr=0.005, decay=1/epochs, momentum=0.9, nesterov=True)
+opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
-# model = MiniVGGNet.build(width=65, height=190, depth=3, classes=2)
-# model = LeNet.build(width=130, height=380, depth=3, classes=2)
-model = NossaNet.build(width=65, height=190, depth=3, classes=2)
+# model = MiniVGGNet.build(width=50, height=250, depth=3, classes=2)
+# model = LeNet.build(width=50, height=250, depth=3, classes=2)
+model = NossaNet.build(width=35, height=250, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
 # Criando callback para salvar melhor rede baseado na validation_loss
-melhor = ModelCheckpoint("Melhores_redes/atual.hdf5", save_best_only=True, verbose=2, monitor='val_acc')
+melhor = ModelCheckpoint("Melhores_redes/atual.hdf5", save_best_only=True, verbose=2, monitor='val_loss')
 
 # train the network
 batch = 20
@@ -83,7 +83,7 @@ print("[INFO] evaluating network...")
 predictions = model.predict(testX, batch_size=batch)
 print(classification_report(testY.argmax(axis=1),
 	predictions.argmax(axis=1),
-	target_names=["nao2", "postes"]))
+	target_names=["nao", "postes"]))
 
 # plot the training loss and accuracy
 plt.style.use("ggplot")
