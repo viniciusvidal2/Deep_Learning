@@ -49,7 +49,7 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 
 # Separando o conjunto de treino e validacao de forma aleatoria
 (trainX, testX, trainY, testY) = train_test_split(data,
-	labels, test_size=0.25, random_state=20)
+	labels, test_size=0.25, random_state=30)
 
 # Numero de epocas pra ficar algo profissional
 epochs = 50
