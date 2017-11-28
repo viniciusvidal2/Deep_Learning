@@ -26,34 +26,35 @@ class NossaNet:
         ker1 = (3,3)
         ker2 = (2,2)
 
-        # define the first (and only) CONV => RELU layer
+        # define the first (and only) CONV => ELU layer
         model.add(Conv2D(32, ker1, padding="same",
                          input_shape=inputShape))
         model.add(Activation(act))
         model.add(MaxPooling2D(pool_size=(3,3), strides=3))
 
 
-        # define the second CONV => RELU layer
+        # define the second CONV => ELU layer
         model.add(Conv2D(64, ker1, padding="same"))
         model.add(Activation(act))
+        model.add(MaxPooling2D(pool_size=(2,2), strides=2))
 
-        # define the third CONV => RELU layer
+        # define the third CONV => ELU layer
         model.add(Conv2D(64, ker2, padding="same"))
         model.add(Activation(act))
 
-        # define the fourth CONV => RELU layer
+        # define the fourth CONV => ELU layer
         model.add(Conv2D(64, ker2, padding="same"))
         model.add(Activation(act))
 
-        # define the fifth CONV => RELU layer
+        # define the fifth CONV => ELU layer
         model.add(Conv2D(64, ker2, padding="same"))
         model.add(Activation(act))
         model.add(Dropout(0.5))
 
-        # define the sixth CONV => RELU layer
-        model.add(Conv2D(128, ker2, padding="same"))
-        model.add(Activation(act))
-        model.add(Dropout(0.5))
+        # define the sixth CONV => ELU layer
+        # model.add(Conv2D(128, ker2, padding="same"))
+        # model.add(Activation(act))
+        # model.add(Dropout(0.5))
 
 
         # Camada so para tentar regular e softmax classifier

@@ -4,9 +4,16 @@ import numpy as np
 from keras.models import load_model
 from cv2 import *
 import os
+import time
 
 # Ajustar o tamanho da imagem ao tamanho da entrada da rede
 from keras.preprocessing.image import img_to_array
+
+def podeOuNaoPode(x_, y_, shape_):
+	if (x_ < shape_[0]/2 - 150 or x_ > shape_[0]/2 + 150) and y_ < 450:
+		return True
+	else:
+		return False
 
 def scales(windowSize_base):
 	for scale in range(2, 4, 1):
@@ -17,9 +24,10 @@ def sliding_window(image, stepSizeW, stepSizeH, windowSize):
 	for y in range(0, image.shape[0]-2*stepSizeH, stepSizeH):
 		for x in range(0, image.shape[1]-2*stepSizeW, stepSizeW):
 			# yield the current window
-			yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
+			if podeOuNaoPode(x, y, image.shape):
+				yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
 
-def show_posts(foto, xp, yp, wsp, scr, fr):
+def show_posts(foto, xp, yp, wsp, scr, st):
 	if len(xp) > 0:
 		# for p in range(len(xp)):
 		# 	rectangle(foto, ( xp[p], yp[p] ), ( xp[p]+wsp[p][0], yp[p]+wsp[p][1] ) , (255, 0, 0), 2)
@@ -31,11 +39,10 @@ def show_posts(foto, xp, yp, wsp, scr, fr):
 		for p in range(bests):
 			rectangle(foto, ( xp[scr_index[p]], yp[scr_index[p]] ),
 			    	  ( xp[scr_index[p]]+wsp[scr_index[p]][0], yp[scr_index[p]]+wsp[scr_index[p]][1] ), (0, 0, 255), 2)
-		putText(foto, "Score: "+str(scr[scr_index[0]]), (10, 100), FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), thickness=2)
-	# imshow(fr, foto)
+		putText(foto, "Score: "+str(scr[scr_index[0]]), (10, 450), FONT_HERSHEY_COMPLEX, 1, (0, 255,   0), thickness=2)
+		putText(foto, "Tempo: "+str(time.time()-st)   , (10, 500), FONT_HERSHEY_COMPLEX, 1, (0, 255, 200), thickness=2)
 	imshow("video", foto)
 	waitKey(1)
-	breakkk=1
 	# destroyAllWindows()
 
 # Carregando o modelo de interesse
@@ -57,11 +64,14 @@ for frame in sorted(os.listdir(video_folder)):
 	# Varrendo a foto escolhida
 	for sc in scales(window_size):
 		# Calculando passo sobre a foto
-		many_steps_w = 3*foto.shape[0]//sc[0]
+		many_steps_w = 2*foto.shape[0]//sc[0]
 		step_size_w  = foto.shape[0]//many_steps_w
 
 		many_steps_h = 3*foto.shape[1]//sc[1]
 		step_size_h  = foto.shape[1]//many_steps_h
+
+		# Medindo tempo da foto
+		start = time.time()
 
 		for (x, y, window) in sliding_window(foto, step_size_w, step_size_h, window_size):
 			# AJUSTAR A IMAGEM DE ENTRADA
@@ -85,6 +95,6 @@ for frame in sorted(os.listdir(video_folder)):
 	# destroyWindow("Slide")
 	# Onde estao os postes Luiz?
 	# print("[INFO] Foto varrida, esses sao os postes...")
-	show_posts(foto=foto, xp=x_p, yp=y_p, wsp=window_size_p, scr=score, fr=frame)
+	show_posts(foto=foto, xp=x_p, yp=y_p, wsp=window_size_p, scr=score, st=start)
 
 espresso = 1
