@@ -50,8 +50,9 @@ model = load_model("Melhores_redes/atual.hdf5") # Cuidado com a manipulacao do a
 
 # Varrendo o video com os frames na pasta devida
 print("[INFO] Comecando a varrer o video...")
-video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/image5_r/"
+# video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/image5_r/"
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play7_rail3_r/"
+video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play8_rail2_r/"
 
 for frame in sorted(os.listdir(video_folder)):
 	# Carregando frame atual
