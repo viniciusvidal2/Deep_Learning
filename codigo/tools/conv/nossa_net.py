@@ -45,18 +45,16 @@ class NossaNet:
         # define the fourth CONV => ELU layer
         model.add(Conv2D(64, ker2, padding="same"))
         model.add(Activation(act))
-        # model.add(MaxPooling2D(pool_size=ker2, strides=2))
 
         # define the fifth CONV => ELU layer
         model.add(Conv2D(64, ker2, padding="same"))
         model.add(Activation(act))
-        model.add(Dropout(0.5))
+        model.add(Dropout(0.25))
 
         # define the sixth CONV => ELU layer
         model.add(Conv2D(128, ker2, padding="same"))
         model.add(Activation(act))
-        model.add(Dropout(0.5))
-
+        model.add(Dropout(0.25))
 
         # Camada so para tentar regular e softmax classifier
         model.add(Flatten())

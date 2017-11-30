@@ -1,4 +1,4 @@
-# Comecando classe para rede MiniVGG
+# import the necessary packages
 from keras.models import Sequential
 from keras.layers.normalization import BatchNormalization
 from keras.layers.convolutional import Conv2D
@@ -42,12 +42,7 @@ class MiniVGGNet:
 		model.add(Conv2D(64, (3, 3), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(64, (3, 3), padding="same"))
-		model.add(Activation("relu"))
-		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(64, (3, 3), padding="same"))
-		model.add(Activation("relu"))
-		model.add(BatchNormalization(axis=chanDim))
+		model.add(MaxPooling2D(pool_size=(2, 2)))
 		model.add(Dropout(0.25))
 
 		# first (and only) set of FC => RELU layers

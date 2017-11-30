@@ -19,6 +19,7 @@ from tools.datasets      import SimpleDatasetLoader
 from tools.conv import NossaNet
 from tools.conv import LeNet
 from tools.conv import MiniVGGNet
+from tools.conv import ShallowNet
 
 # Callback para salvar melhor rede
 from keras.callbacks import ModelCheckpoint
@@ -33,7 +34,6 @@ imagePaths = list(paths.list_images(path))
 
 
 # initialize the image preprocessors
-# sp = SimplePreprocessor(65, 190)
 sp = SimplePreprocessor(35, 250) # Tentativa para focar bem no poste
 iap = ImageToArrayPreprocessor()
 
@@ -52,16 +52,17 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 	labels, test_size=0.25, random_state=30)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 150
+epochs = 5
 
 # initialize the optimizer
 print("[INFO] compiling model...")
 opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
-# model = MiniVGGNet.build(width=50, height=250, depth=3, classes=2)
-# model = LeNet.build(width=50, height=250, depth=3, classes=2)
-model = NossaNet.build(width=35, height=250, depth=3, classes=2)
+# model = ShallowNet.build(width=35, height=250, depth=3, classes=2)
+# model = MiniVGGNet.build(width=35, height=250, depth=3, classes=2)
+model = LeNet.build(width=35, height=250, depth=3, classes=2)
+# model = NossaNet.build(width=35, height=250, depth=3, classes=2)
 model.compile(loss="binary_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 

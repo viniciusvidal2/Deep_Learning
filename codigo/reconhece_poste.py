@@ -10,7 +10,7 @@ import time
 from keras.preprocessing.image import img_to_array
 
 def podeOuNaoPode(x_, y_, shape_):
-	if (x_ < shape_[0]/2 - 150 or x_ > shape_[0]/2 + 150) and y_ < 450:
+	if (x_ < shape_[1]/2 - 150 or x_ > shape_[1]/2 + 150) and y_ < 450:
 		return True
 	else:
 		return False
@@ -90,10 +90,10 @@ for frame in sorted(os.listdir(video_folder)):
 				window_size_p.append(sc)
 				score.append(poste[0][1])
 
-			# clone = foto.copy()
-			# rectangle(clone, (x,y), (x + sc[0], y + sc[1]), (0,255,0),2)
-			# imshow("Slide", clone)
-			# waitKey(1)
+			clone = foto.copy()
+			rectangle(clone, (x,y), (x + sc[0], y + sc[1]), (0,255,0),2)
+			imshow("Slide", clone)
+			waitKey(1)
 
 	# destroyWindow("Slide")
 	# Onde estao os postes Luiz?
