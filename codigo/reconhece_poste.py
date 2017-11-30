@@ -41,18 +41,21 @@ def show_posts(foto, xp, yp, wsp, scr, st):
 			    	  ( xp[scr_index[p]]+wsp[scr_index[p]][0], yp[scr_index[p]]+wsp[scr_index[p]][1] ), (0, 0, 255), 2)
 		putText(foto, "Score: "+str(scr[scr_index[0]]), (10, 450), FONT_HERSHEY_COMPLEX, 1, (0, 255,   0), thickness=2)
 		putText(foto, "Tempo: "+str(time.time()-st)   , (10, 500), FONT_HERSHEY_COMPLEX, 1, (0, 255, 200), thickness=2)
+		# print("Tempo: %.3f"%(time.time()-st))
 	imshow("video", foto)
 	waitKey(1)
 	# destroyAllWindows()
 
 # Carregando o modelo de interesse
-model = load_model("Melhores_redes/atual.hdf5") # Cuidado com a manipulacao do arquivo
+model = load_model("Melhores_redes/melhor_video_7camadas.hdf5") # Cuidado com a manipulacao do arquivo
 
 # Varrendo o video com os frames na pasta devida
 print("[INFO] Comecando a varrer o video...")
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/image5_r/"
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play7_rail3_r/"
-video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play8_rail2_r/"
+# video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play8_rail2_r/"
+# video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play1_rail2/"
+video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play6_rail3/"
 
 for frame in sorted(os.listdir(video_folder)):
 	# Carregando frame atual
@@ -90,10 +93,10 @@ for frame in sorted(os.listdir(video_folder)):
 				window_size_p.append(sc)
 				score.append(poste[0][1])
 
-			clone = foto.copy()
-			rectangle(clone, (x,y), (x + sc[0], y + sc[1]), (0,255,0),2)
-			imshow("Slide", clone)
-			waitKey(1)
+			# clone = foto.copy()
+			# rectangle(clone, (x,y), (x + sc[0], y + sc[1]), (0,255,0),2)
+			# imshow("Slide", clone)
+			# waitKey(1)
 
 	# destroyWindow("Slide")
 	# Onde estao os postes Luiz?
