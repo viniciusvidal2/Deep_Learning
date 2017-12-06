@@ -52,7 +52,7 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 	labels, test_size=0.25, random_state=30)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 5
+epochs = 60
 
 # initialize the optimizer
 print("[INFO] compiling model...")
@@ -61,9 +61,9 @@ opt = SGD(lr=0.001, decay=1/epochs, momentum=0.9, nesterov=True)
 # Utilizando o modelo do caso atual
 # model = ShallowNet.build(width=35, height=250, depth=3, classes=2)
 # model = MiniVGGNet.build(width=35, height=250, depth=3, classes=2)
-model = LeNet.build(width=35, height=250, depth=3, classes=2)
-# model = NossaNet.build(width=35, height=250, depth=3, classes=2)
-model.compile(loss="binary_crossentropy", optimizer=opt,
+# model = LeNet.build(width=35, height=250, depth=3, classes=2)
+model = NossaNet.build(width=35, height=250, depth=3, classes=2)
+model.compile(loss="categorical_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 
 # Criando callback para salvar melhor rede baseado na validation_loss

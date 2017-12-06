@@ -30,7 +30,7 @@ class NossaNet:
         model.add(Conv2D(32, ker1, padding="same",
                          input_shape=inputShape))
         model.add(Activation(act))
-        model.add(MaxPooling2D(pool_size=ker1, strides=3))
+        # model.add(MaxPooling2D(pool_size=ker1, strides=3))
 
 
         # define the second CONV => ELU layer
@@ -45,6 +45,7 @@ class NossaNet:
         # define the fourth CONV => ELU layer
         model.add(Conv2D(64, ker2, padding="same"))
         model.add(Activation(act))
+        model.add(MaxPooling2D(pool_size=ker2, strides=3))
 
         # define the fifth CONV => ELU layer
         model.add(Conv2D(64, ker2, padding="same"))
@@ -52,9 +53,9 @@ class NossaNet:
         model.add(Dropout(0.25))
 
         # define the sixth CONV => ELU layer
-        model.add(Conv2D(128, ker2, padding="same"))
-        model.add(Activation(act))
-        model.add(Dropout(0.25))
+        # model.add(Conv2D(128, ker2, padding="same"))
+        # model.add(Activation(act))
+        # model.add(Dropout(0.25))
 
         # Camada so para tentar regular e softmax classifier
         model.add(Flatten())

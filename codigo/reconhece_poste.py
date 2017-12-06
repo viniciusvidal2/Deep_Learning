@@ -27,35 +27,47 @@ def sliding_window(image, stepSizeW, stepSizeH, windowSize):
 			if podeOuNaoPode(x, y, image.shape):
 				yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
 
-def show_posts(foto, xp, yp, wsp, scr, st):
+def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
 	if len(xp) > 0:
-		# for p in range(len(xp)):
-		# 	rectangle(foto, ( xp[p], yp[p] ), ( xp[p]+wsp[p][0], yp[p]+wsp[p][1] ) , (255, 0, 0), 2)
 		scr = np.array(scr)
 		bests = 1
-		# if len(scr) >= 2:
-		# 	bests = 2
 		scr_index = scr.argsort()[::-1][:bests]
 		for p in range(bests):
 			rectangle(foto, ( xp[scr_index[p]], yp[scr_index[p]] ),
 			    	  ( xp[scr_index[p]]+wsp[scr_index[p]][0], yp[scr_index[p]]+wsp[scr_index[p]][1] ), (0, 0, 255), 2)
 		putText(foto, "Score: "+str(scr[scr_index[0]]), (10, 450), FONT_HERSHEY_COMPLEX, 1, (0, 255,   0), thickness=2)
 		putText(foto, "Tempo: "+str(time.time()-st)   , (10, 500), FONT_HERSHEY_COMPLEX, 1, (0, 255, 200), thickness=2)
+		putText(foto, "Postes: " + str(npo), (400, 300), FONT_HERSHEY_COMPLEX, 1, (100, 0,   0), thickness=2)
+		putText(foto, "Naos:   " + str(nn ), (400, 350), FONT_HERSHEY_COMPLEX, 1, (  0, 0, 100), thickness=2)
 		# print("Tempo: %.3f"%(time.time()-st))
 	imshow("video", foto)
-	waitKey(1)
-	# destroyAllWindows()
+	if len(xp) > 0:
+		keypressed = waitKey(0)
+		if keypressed == 112: # poste
+			npo=npo+1
+		elif keypressed == 110: # nao poste
+			nn=nn+1
+	else:
+		waitKey(1)
+
+	return (npo, nn)
+
+# COntagem dos postes e nao postes
+npostes = 0; nnao = 0;
 
 # Carregando o modelo de interesse
-model = load_model("Melhores_redes/melhor_video_7camadas.hdf5") # Cuidado com a manipulacao do arquivo
+model = load_model("Melhores_redes/melhor_duaspool.hdf5") # Cuidado com a manipulacao do arquivo
 
 # Varrendo o video com os frames na pasta devida
 print("[INFO] Comecando a varrer o video...")
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/image5_r/"
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play7_rail3_r/"
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play8_rail2_r/"
-# video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play1_rail2/"
-video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play6_rail3/"
+video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play1_rail2/"
+# video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play6_rail3/"
+
+# Para analise estatistica apos processamento
+score_vector = []
 
 for frame in sorted(os.listdir(video_folder)):
 	# Carregando frame atual
@@ -87,11 +99,12 @@ for frame in sorted(os.listdir(video_folder)):
 			window = np.expand_dims(window, axis=0) # 4 dimensions pagina 284 livro
 			# Ver predicao
 			poste = model.predict(window)
-			if poste[0][1] > poste[0][0] and poste[0][1] > 0.75: # estamos com um poste aqui
+			if poste[0][1] > poste[0][0] and poste[0][1] > 0.91: # estamos com um poste aqui
 				x_p.append(x)
 				y_p.append(y)
 				window_size_p.append(sc)
 				score.append(poste[0][1])
+				score_vector.append(poste[0][1])
 
 			# clone = foto.copy()
 			# rectangle(clone, (x,y), (x + sc[0], y + sc[1]), (0,255,0),2)
@@ -101,6 +114,10 @@ for frame in sorted(os.listdir(video_folder)):
 	# destroyWindow("Slide")
 	# Onde estao os postes Luiz?
 	# print("[INFO] Foto varrida, esses sao os postes...")
-	show_posts(foto=foto, xp=x_p, yp=y_p, wsp=window_size_p, scr=score, st=start)
+	(npostes, nnao) = show_posts(foto=foto, xp=x_p, yp=y_p, wsp=window_size_p, scr=score, st=start, npo=npostes, nn=nnao)
 
 espresso = 1
+print("Media de scores: %.2f"%np.mean(np.array(score_vector)))
+print("Desvio padrao  : %.3f"%np.sqrt(np.var(np.array(score_vector))))
+print("Quantos poste: %d"%npostes)
+print("Quantos nao poste: %d"%nnao)
