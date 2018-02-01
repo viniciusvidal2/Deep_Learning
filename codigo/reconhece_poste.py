@@ -56,7 +56,7 @@ def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
 npostes = 0; nnao = 0;
 
 # Carregando o modelo de interesse
-model = load_model("Melhores_redes/melhor_duaspool.hdf5") # Cuidado com a manipulacao do arquivo
+model = load_model("Melhores_redes/atual.hdf5") # Cuidado com a manipulacao do arquivo
 
 # Varrendo o video com os frames na pasta devida
 print("[INFO] Comecando a varrer o video...")
