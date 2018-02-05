@@ -12,3 +12,5 @@ PODE MUDAR O THRESHOLD!!!
 > A rede rapida com 2 batchs teve resultado bom, com 0,99 de acerto treinamento. No teste ainda foi ok, mas pior que a profunda naturalmente. esta achando um cado de ceu.
 
 > Rede rapida normal teve 0.93 de acerto no treinamento. Nos testes so com numeros mesmo agora.
+
+> CONCLUSAO IMPORTANTE: AUMENTAR AS CAMADAS pode trazer melhores resultados de treinamento, porem na pratica somente aumenta os scores das janelas achadas, pode vir inclusive a aumentar a quantidade de falsos positivos; o que importa mesmo, para aumentar o numero de camadas, e ter um conjunto de dados de treino maior ou melhor. 

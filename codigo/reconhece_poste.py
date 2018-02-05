@@ -28,6 +28,7 @@ def sliding_window(image, stepSizeW, stepSizeH, windowSize):
 				yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
 
 def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
+	t = 0
 	if len(xp) > 0:
 		scr = np.array(scr)
 		bests = 1
@@ -35,14 +36,15 @@ def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
 		for p in range(bests):
 			rectangle(foto, ( xp[scr_index[p]], yp[scr_index[p]] ),
 			    	  ( xp[scr_index[p]]+wsp[scr_index[p]][0], yp[scr_index[p]]+wsp[scr_index[p]][1] ), (0, 0, 255), 2)
+		t = time.time() - st
 		putText(foto, "Score: "+str(scr[scr_index[0]]), (10, 450), FONT_HERSHEY_COMPLEX, 1, (0, 255,   0), thickness=2)
-		putText(foto, "Tempo: "+str(time.time()-st)   , (10, 500), FONT_HERSHEY_COMPLEX, 1, (0, 255, 200), thickness=2)
+		putText(foto, "Tempo: "+str(t)                , (10, 500), FONT_HERSHEY_COMPLEX, 1, (0, 255, 200), thickness=2)
 		putText(foto, "Postes: " + str(npo), (400, 300), FONT_HERSHEY_COMPLEX, 1, (100, 0,   0), thickness=2)
 		putText(foto, "Naos:   " + str(nn ), (400, 350), FONT_HERSHEY_COMPLEX, 1, (  0, 0, 100), thickness=2)
 		# print("Tempo: %.3f"%(time.time()-st))
 	imshow("video", foto)
 	if len(xp) > 0:
-		keypressed = waitKey(0)
+		keypressed = waitKey(1)
 		if keypressed == 112: # poste
 			npo=npo+1
 		elif keypressed == 110: # nao poste
@@ -50,7 +52,7 @@ def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
 	else:
 		waitKey(1)
 
-	return (npo, nn)
+	return (npo, nn, t)
 
 # COntagem dos postes e nao postes
 npostes = 0; nnao = 0;
@@ -68,6 +70,7 @@ video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play1_rail2/"
 
 # Para analise estatistica apos processamento
 score_vector = []
+tempo_vetor  = []
 
 for frame in sorted(os.listdir(video_folder)):
 	# Carregando frame atual
@@ -114,10 +117,12 @@ for frame in sorted(os.listdir(video_folder)):
 	# destroyWindow("Slide")
 	# Onde estao os postes Luiz?
 	# print("[INFO] Foto varrida, esses sao os postes...")
-	(npostes, nnao) = show_posts(foto=foto, xp=x_p, yp=y_p, wsp=window_size_p, scr=score, st=start, npo=npostes, nn=nnao)
+	(npostes, nnao, tempo) = show_posts(foto=foto, xp=x_p, yp=y_p, wsp=window_size_p, scr=score, st=start, npo=npostes, nn=nnao)
+	tempo_vetor.append(tempo)
 
 espresso = 1
 print("Media de scores: %.2f"%np.mean(np.array(score_vector)))
 print("Desvio padrao  : %.3f"%np.sqrt(np.var(np.array(score_vector))))
 print("Quantos poste: %d"%npostes)
 print("Quantos nao poste: %d"%nnao)
+print("Tempo medio: %.2f"%np.sum(np.float64(np.array(tempo_vetor)))/np.float64(npostes+nnao))
