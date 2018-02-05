@@ -1,0 +1,14 @@
+> Ao testar miniVGG natural, muitas epocas, com batch normalization, a curva e horrivel de treinamento, mas chega no final com acuracia ok, e validacao tambem. No teste pratico porem, fica muito ruim, muito generalizada, nao pegando postes e favorecendo falsos positivos em frames que continham postes.
+
+> Ao rodar a miniVGG sem batch normalization, a mesma bosta no teste pratico, treinamento foi um pouco superior. So acha falso positivo, acho que muitos pooling pioram o detalhamento da imagem e desfavorecem o poste, pois da score 1 em fotos que so tem o fundo nitido.
+
+> ROdando profunda com 2 batchs media de 0.99 no treinamento. Muito bom no resultado de teste, vale a pena anotar os dados.
+
+> A profunda sem batch da media de 0.96 no treinamento, e grafico mais suave. Puts, eu acho que esta pior o resultado nos testes, tem que rodar contando mesmo tudo quanto e dado pra comparar.
+
+PODE MUDAR O THRESHOLD!!!
+
+
+> A rede rapida com 2 batchs teve resultado bom, com 0,99 de acerto treinamento. No teste ainda foi ok, mas pior que a profunda naturalmente. esta achando um cado de ceu.
+
+> Rede rapida normal teve 0.93 de acerto no treinamento. Nos testes so com numeros mesmo agora.

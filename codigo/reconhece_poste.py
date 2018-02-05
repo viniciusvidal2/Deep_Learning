@@ -99,7 +99,7 @@ for frame in sorted(os.listdir(video_folder)):
 			window = np.expand_dims(window, axis=0) # 4 dimensions pagina 284 livro
 			# Ver predicao
 			poste = model.predict(window)
-			if poste[0][1] > poste[0][0] and poste[0][1] > 0.91: # estamos com um poste aqui
+			if poste[0][1] > poste[0][0] and poste[0][1] > 0.94: # estamos com um poste aqui
 				x_p.append(x)
 				y_p.append(y)
 				window_size_p.append(sc)

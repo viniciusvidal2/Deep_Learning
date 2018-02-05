@@ -52,7 +52,7 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 	labels, test_size=0.25, random_state=30)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 60
+epochs = 160
 
 # initialize the optimizer
 print("[INFO] compiling model...")
