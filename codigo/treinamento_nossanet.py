@@ -27,6 +27,9 @@ from keras.callbacks import ModelCheckpoint
 from keras.models import load_model
 from keras.utils import plot_model
 
+# Save data to matlab
+import scipy.io as io
+
 # grab the list of images that we'll be describing
 print("[INFO] loading images...")
 path = "../datasets/POSTE/"
@@ -52,7 +55,7 @@ labels = np_utils.to_categorical(le.transform(labels), 2)
 	labels, test_size=0.25, random_state=30)
 
 # Numero de epocas pra ficar algo profissional
-epochs = 100
+epochs = 2
 
 # initialize the optimizer
 print("[INFO] compiling model...")
@@ -85,6 +88,10 @@ predictions = model.predict(testX, batch_size=batch)
 print(classification_report(testY.argmax(axis=1),
 	predictions.argmax(axis=1),
 	target_names=["nao", "postes"]))
+
+# Saving data to matlab format
+net_name = "rapida"
+io.savemat("rede_"+net_name, {'loss':H.history["loss"], 'vloss':H.history["val_loss"], 'acc':H.history["acc"], 'vacc':H.history["val_acc"]})
 
 # plot the training loss and accuracy
 plt.style.use("ggplot")
