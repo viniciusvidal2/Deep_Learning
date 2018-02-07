@@ -32,47 +32,47 @@ class NossaNet:
         #### REDE ROTATIVA #############################################
         ################################################################
 
-        model.add(Conv2D(50, ker2, padding="same",
-                         input_shape=inputShape))
-        model.add(Activation(act))
-        model.add(BatchNormalization(axis=chanDim))
-        model.add(MaxPooling2D(pool_size=ker1, strides=2))
-
-        model.add(Conv2D(100, ker2, padding="same"))
-        model.add(Activation(act))
-        model.add(BatchNormalization(axis=chanDim))
-
-        model.add(Conv2D(100, ker2, padding="same"))
-        model.add(Activation(act))
-        model.add(BatchNormalization(axis=chanDim))
-        model.add(MaxPooling2D(pool_size=ker1, strides=2))
-
-        model.add(Conv2D(100, ker2, padding="same"))
-        model.add(Activation(act))
-        model.add(BatchNormalization(axis=chanDim))
-
-        model.add(Conv2D(100, ker2, padding="same"))
-        model.add(Activation(act))
-        model.add(BatchNormalization(axis=chanDim))
-
-        model.add(Conv2D(100, ker2, padding="same"))
-        model.add(Activation(act))
-        model.add(BatchNormalization(axis=chanDim))
-
-        model.add(Conv2D(100, ker2, padding="same"))
-        model.add(Activation(act))
+        # model.add(Conv2D(50, ker2, padding="same",
+        #                  input_shape=inputShape))
+        # model.add(Activation(act))
         # model.add(BatchNormalization(axis=chanDim))
-
-        model.add(Conv2D(100, ker2, padding="same"))
-        model.add(Activation(act))
+        # model.add(MaxPooling2D(pool_size=ker1, strides=2))
+        #
+        # model.add(Conv2D(100, ker2, padding="same"))
+        # model.add(Activation(act))
         # model.add(BatchNormalization(axis=chanDim))
-
-        model.add(Flatten())
-        model.add(Dropout(0.5))
-        model.add(Dense(100))
-        model.add(Dense(classes))
-        model.add(Activation(act))
-        model.add(Activation("softmax"))
+        #
+        # model.add(Conv2D(100, ker2, padding="same"))
+        # model.add(Activation(act))
+        # model.add(BatchNormalization(axis=chanDim))
+        # model.add(MaxPooling2D(pool_size=ker1, strides=2))
+        #
+        # model.add(Conv2D(100, ker2, padding="same"))
+        # model.add(Activation(act))
+        # model.add(BatchNormalization(axis=chanDim))
+        #
+        # model.add(Conv2D(100, ker2, padding="same"))
+        # model.add(Activation(act))
+        # model.add(BatchNormalization(axis=chanDim))
+        #
+        # model.add(Conv2D(100, ker2, padding="same"))
+        # model.add(Activation(act))
+        # model.add(BatchNormalization(axis=chanDim))
+        #
+        # model.add(Conv2D(100, ker2, padding="same"))
+        # model.add(Activation(act))
+        # # model.add(BatchNormalization(axis=chanDim))
+        #
+        # model.add(Conv2D(100, ker2, padding="same"))
+        # model.add(Activation(act))
+        # # model.add(BatchNormalization(axis=chanDim))
+        #
+        # model.add(Flatten())
+        # model.add(Dropout(0.5))
+        # model.add(Dense(100))
+        # model.add(Dense(classes))
+        # model.add(Activation(act))
+        # model.add(Activation("softmax"))
         ################################################################
         ################################################################
 
@@ -81,13 +81,13 @@ class NossaNet:
         ################################################################
         # model.add(Conv2D(20, ker1, padding="same",
         #                  input_shape=inputShape))
-        # model.add(BatchNormalization(axis=chanDim))
         # model.add(Activation(act))
+        # model.add(BatchNormalization(axis=chanDim))
         # model.add(MaxPooling2D(pool_size=ker1, strides=3))
         #
         # model.add(Conv2D(20, ker1, padding="same"))
-        # model.add(BatchNormalization(axis=chanDim))
         # model.add(Activation(act))
+        # model.add(BatchNormalization(axis=chanDim))
         # model.add(MaxPooling2D(pool_size=ker2, strides=3))
         #
         # model.add(Conv2D(50, ker2, padding="same"))
@@ -106,36 +106,36 @@ class NossaNet:
         ################################################################
         #### REDE PROFUNDA #############################################
         ################################################################
-        # model.add(Conv2D(32, ker1, padding="same",
-        #                  input_shape=inputShape))
-        # # model.add(BatchNormalization(axis=chanDim))
-        # model.add(Activation(act))
-        # model.add(MaxPooling2D(pool_size=ker1, strides=3))
-        #
-        # model.add(Conv2D(32, ker1, padding="same"))
-        # # model.add(BatchNormalization(axis=chanDim))
-        # model.add(Activation(act))
-        #
-        # model.add(Conv2D(32, ker2, padding="same"))
-        # model.add(Activation(act))
-        # model.add(MaxPooling2D(pool_size=ker2, strides=3))
-        #
-        # model.add(Conv2D(64, ker2, padding="same"))
-        # model.add(Activation(act))
-        #
-        # model.add(Conv2D(64, ker2, padding="same"))
-        # model.add(Activation(act))
-        #
-        # model.add(Conv2D(64, ker2, padding="same"))
-        # model.add(Activation(act))
-        #
-        # model.add(Conv2D(64, ker2, padding="same"))
-        # model.add(Activation(act))
-        #
-        # model.add(Flatten())
-        # model.add(Dropout(0.5))
-        # model.add(Dense(classes))
-        # model.add(Activation("softmax"))
+        model.add(Conv2D(32, ker1, padding="same",
+                         input_shape=inputShape))
+        model.add(BatchNormalization(axis=chanDim))
+        model.add(Activation(act))
+        model.add(MaxPooling2D(pool_size=ker1, strides=3))
+
+        model.add(Conv2D(32, ker1, padding="same"))
+        model.add(BatchNormalization(axis=chanDim))
+        model.add(Activation(act))
+
+        model.add(Conv2D(32, ker2, padding="same"))
+        model.add(Activation(act))
+        model.add(MaxPooling2D(pool_size=ker2, strides=3))
+
+        model.add(Conv2D(64, ker2, padding="same"))
+        model.add(Activation(act))
+
+        model.add(Conv2D(64, ker2, padding="same"))
+        model.add(Activation(act))
+
+        model.add(Conv2D(64, ker2, padding="same"))
+        model.add(Activation(act))
+
+        model.add(Conv2D(64, ker2, padding="same"))
+        model.add(Activation(act))
+
+        model.add(Flatten())
+        model.add(Dropout(0.5))
+        model.add(Dense(classes))
+        model.add(Activation("softmax"))
         ################################################################
         ################################################################
 

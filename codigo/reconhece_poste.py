@@ -28,7 +28,7 @@ def sliding_window(image, stepSizeW, stepSizeH, windowSize):
 				yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
 
 def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
-	t = 0
+	t = 0.0
 	if len(xp) > 0:
 		scr = np.array(scr)
 		bests = 1
@@ -58,7 +58,7 @@ def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
 npostes = 0; nnao = 0;
 
 # Carregando o modelo de interesse
-model = load_model("Melhores_redes/atual.hdf5") # Cuidado com a manipulacao do arquivo
+model = load_model("Melhores_redes/profunda_2batchs.hdf5") # Cuidado com a manipulacao do arquivo
 
 # Varrendo o video com os frames na pasta devida
 print("[INFO] Comecando a varrer o video...")
@@ -125,4 +125,4 @@ print("Media de scores: %.2f"%np.mean(np.array(score_vector)))
 print("Desvio padrao  : %.3f"%np.sqrt(np.var(np.array(score_vector))))
 print("Quantos poste: %d"%npostes)
 print("Quantos nao poste: %d"%nnao)
-print("Tempo medio: %.2f"%np.sum(np.float64(np.array(tempo_vetor)))/np.float64(npostes+nnao))
+print("Tempo medio: %.2f"%np.sum(np.array(tempo_vetor))/np.float64(npostes+nnao))
