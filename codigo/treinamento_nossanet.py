@@ -59,8 +59,8 @@ epochs = 100
 
 # initialize the optimizer
 print("[INFO] compiling model...")
-opt = SGD(lr=0.005, decay=1/epochs)
-# opt = SGD(lr=0.01, decay=1/epochs, momentum=0.9, nesterov=True)
+# opt = SGD(lr=0.005, decay=1/epochs)
+opt = SGD(lr=0.01, decay=1/epochs, momentum=0.9, nesterov=True)
 
 # Utilizando o modelo do caso atual
 # model = ShallowNet.build(width=35, height=250, depth=3, classes=2)
@@ -91,7 +91,7 @@ print(classification_report(testY.argmax(axis=1),
 	target_names=["nao", "postes"]))
 
 # Saving data to matlab format
-net_name = "profunda_batch"
+net_name = "generica"
 io.savemat("rede_"+net_name, {'loss':H.history["loss"], 'vloss':H.history["val_loss"], 'acc':H.history["acc"], 'vacc':H.history["val_acc"]})
 
 # plot the training loss and accuracy

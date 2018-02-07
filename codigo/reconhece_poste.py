@@ -39,8 +39,8 @@ def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
 		t = time.time() - st
 		putText(foto, "Score: "+str(scr[scr_index[0]]), (10, 450), FONT_HERSHEY_COMPLEX, 1, (0, 255,   0), thickness=2)
 		putText(foto, "Tempo: "+str(t)                , (10, 500), FONT_HERSHEY_COMPLEX, 1, (0, 255, 200), thickness=2)
-		putText(foto, "Postes: " + str(npo), (400, 300), FONT_HERSHEY_COMPLEX, 1, (100, 0,   0), thickness=2)
-		putText(foto, "Naos:   " + str(nn ), (400, 350), FONT_HERSHEY_COMPLEX, 1, (  0, 0, 100), thickness=2)
+		# putText(foto, "Postes: " + str(npo), (400, 300), FONT_HERSHEY_COMPLEX, 1, (100, 0,   0), thickness=2)
+		# putText(foto, "Naos:   " + str(nn ), (400, 350), FONT_HERSHEY_COMPLEX, 1, (  0, 0, 100), thickness=2)
 		# print("Tempo: %.3f"%(time.time()-st))
 	imshow("video", foto)
 	if len(xp) > 0:
@@ -58,15 +58,15 @@ def show_posts(foto, xp, yp, wsp, scr, st, npo, nn):
 npostes = 0; nnao = 0;
 
 # Carregando o modelo de interesse
-model = load_model("Melhores_redes/profunda_2batchs.hdf5") # Cuidado com a manipulacao do arquivo
+model = load_model("Melhores_redes/profunda_normal.hdf5") # Cuidado com a manipulacao do arquivo
 
 # Varrendo o video com os frames na pasta devida
 print("[INFO] Comecando a varrer o video...")
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/image5_r/"
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play7_rail3_r/"
 # video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play8_rail2_r/"
-video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play1_rail2/"
-# video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play6_rail3/"
+# video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play1_rail2/"
+video_folder = "/home/vinicius/Desktop/Deep_Learning/datasets/play6_rail3/"
 
 # Para analise estatistica apos processamento
 score_vector = []
@@ -125,4 +125,4 @@ print("Media de scores: %.2f"%np.mean(np.array(score_vector)))
 print("Desvio padrao  : %.3f"%np.sqrt(np.var(np.array(score_vector))))
 print("Quantos poste: %d"%npostes)
 print("Quantos nao poste: %d"%nnao)
-print("Tempo medio: %.2f"%np.sum(np.array(tempo_vetor))/np.float64(npostes+nnao))
+print("Tempo medio: %.2f"%np.mean(np.array(tempo_vetor)) * (len(tempo_vetor))/(npostes+nnao) )
